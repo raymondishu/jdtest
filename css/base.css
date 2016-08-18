@@ -12,6 +12,20 @@ body{
 	font-family: "Microsoft YaHei",sans-serif;/*第二个是手机的一个默认的字体*/
 	color:#000;
 	-webkit-box-sizing:border-box;/*以你的border开始计算宽度*/
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+div{
+	-webkit-box-sizing:border-box;/*以你的border开始计算宽度*/
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.layout{
+	min-width: 300px;
+	max-width: 640px;
+	margin:0 auto;
+	position: relative;
+	height: 1000px;
 }
 
 a{
