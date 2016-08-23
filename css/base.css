@@ -20,6 +20,11 @@ div{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+span,a,input{
+	-webkit-box-sizing:border-box;/*以你的border开始计算宽度*/
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 .layout{
 	min-width: 300px;
 	max-width: 640px;
