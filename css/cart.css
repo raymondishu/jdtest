@@ -197,4 +197,118 @@ body{
     background-size: 18px 18px;
     margin-top: -3px;
 }
+/*金额操作*/
+.amount{
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	height: 62px;
+	background:rgba(0,0,0,0.8); 
+	width: 100%;
+}
+.amount .amount_check{
+	position: absolute;
+	width: 80px;
+	height: 62px;
+	line-height: 62px;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 700;
+	padding-left: 35px;
+}
+.amount .amount_check .check_box{
+	position: absolute;
+	top:20px;
+	left:10px;
+}
+.amount .amount_info{
+	padding-left: 80px;
+	padding-right: 120px;
+	position: absolute;
+}
+.amount .amount_info .sum{
+	padding:0;
+	margin:0;
+	margin-top: 5px;
+	font-size: 23px;
+	font-weight: 900;
+	color: #fff;
+}
+.amount .amount_info .other{
+	padding:0;
+	margin:0;
+	margin-top: 5px;
+	font-size: 15px;
+	color: #fff;
+}
+.amount .amount_submit{
+	float: right;
+	width: 120px;
+	height: 62px;
+	line-height: 62px;
+	text-align: center;
+	background-color: #d8505c;
+	font-weight: 900;
+	font-size: 23px;
+	color: #fff;
+}
 
+.amount .amount_submit span{
+	font-size: 18px;
+}
+/***弹出层***/
+.win{
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top:0;
+	bottom: 0;
+	background: rgba(0,0,0,0.4);
+	z-index: 1001;
+}
+.win .win_box{
+	width: 85%;
+	border:1px solid #fff;
+	background: #fff;
+	border-radius: 4px;
+	margin:10px auto;
+	padding:5px;
+
+}
+.win .win_box .win_box_text{
+	height: 75px;
+	color:#666;
+	text-align: center;
+	padding-top:10px;
+	font-size: 20px;
+}
+
+.win .win_box .btn_box{
+	font-size: 17px;
+	font-weight: 700;
+}
+
+.win .win_box .btn_box .cancel{
+	width: 45%;
+	height: 36px;
+	display: block;
+	float: left;
+	margin-right:10%;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	text-align: center;
+	border-radius: 4px;
+	line-height: 36px;
+	color: #888;
+}
+.win .win_box .btn_box .submit{
+	width: 45%;
+	height: 36px;
+	display: block;
+	float: left;
+	background: #d8505c;
+	border-radius: 4px;
+	text-align: center;
+	line-height: 36px;
+	color: #fff;
+}
