@@ -7,10 +7,14 @@ window.onload=function() {
 		if(top>height){
 			search.style.background="rgba(201,21,35,0.85)";
 		}else{
-			var op=top/height*0.85;
+			var op=top/height*0.55;
 			search.style.background="rgba(201,21,35,"+op+")";
 		}
 	}
+	secindkill();
+	var sp=ScrollPic();
+	sp.startInterval();
+
 }
 var secindkill=function(){
 	var parentTime=document.getElementsByClassName('sk_time')[0];
@@ -31,4 +35,113 @@ var secindkill=function(){
 		timeKist[5].innerHTML=s%10;
 	}, 1000);
 }
-secindkill();
+
+
+var ScrollPic= function(){
+	var obj = new Object();
+	// 得到banner对象
+	var banner=document.getElementsByClassName("banner")[0];
+	var width=banner.offsetWidth;
+	// 得到图片盒子
+	var imgBox=banner.getElementsByTagName('ul')[0];
+	// 得到点盒子
+	var pointBox=banner.getElementsByTagName('ul')[1];
+	// 得到点列
+	var pointList=pointBox.getElementsByTagName('li');
+	var index=0;
+	for(var item in pointList){
+    	pointList[item].onclick=(function(i){ // outer function 
+			return function(){ //inner function 
+				obj.stopInterval();
+				index=i;
+				obj.setIndex(i);
+				obj.startInterval();
+			};
+		})(item);
+
+    }  
+
+
+//加过度
+	var addTransition=function(){
+		imgBox.style.transition="all .3s ease 0s";
+		imgBox.style.webkitTransition="all .3s ease 0s";
+	}
+//减过度
+	var removeTransition=function(){
+		imgBox.style.transition="";
+		imgBox.style.webkitTransition="";
+	}
+	//改变位置
+	obj.setTransform=function(t){
+		imgBox.style.transform='translateX('+t+'px)';
+		imgBox.style.webkittransform='translateX('+t+'px)';
+	}
+
+	//更改点位置
+	obj.setpoint=function(i){
+		
+		for(var item in pointList)  {
+    		removeClass(pointList[item],'active');
+    	}  
+		var point=pointList[i];
+		point.className +='' + 'active';
+
+	}
+	var timer=null;
+	obj.startInterval=function(){
+		timer=setInterval(function(){
+			addTransition();
+			obj.setIndex((index+1)%8);
+		},3000);
+	}
+
+	obj.setIndex=function(i){
+		index=i;
+		obj.setTransform(-i*width);
+		obj.setpoint(i);
+	}
+	obj.stopInterval=function(){
+		clearInterval(timer);
+	}
+	var removeClass=function (obj, cls){
+  		var obj_class = ' '+obj.className+' ';//获取 class 内容, 并在首尾各加一个空格. ex) 'abc    bcd' -> ' abc    bcd '
+  		obj_class = obj_class.replace(/(\s+)/gi, ' '),//将多余的空字符替换成一个空格. ex) ' abc    bcd ' -> ' abc bcd '
+  		removed = obj_class.replace(' '+cls+' ', ' ');//在原来的 class 替换掉首尾加了空格的 class. ex) ' abc bcd ' -> 'bcd '
+  		removed = removed.replace(/(^\s+)|(\s+$)/g, '');//去掉首尾空格. ex) 'bcd ' -> 'bcd'
+  		obj.className = removed;//替换原来的 class.
+	}
+	var moveX=0;
+	var startX=0;
+
+	imgBox.addEventListener('touchstart',touch);
+	imgBox.addEventListener('touchmove',touch);
+	/**触摸结束事件**/
+	imgBox.addEventListener('touchend',touch);
+	
+	function touch(event){
+        console.log(event);
+        switch(event.type){
+            case "touchstart":
+
+            	startX=event.touches[0].clientX;
+            	removeTransition();
+            	obj.stopInterval();
+                //alert("Touch started (" + event.touches[0].clientX +"," + event.touches[0].clientY +")");
+                break;
+            case "touchend":
+                //alert("<br>Touch end (" + event.changedTouches[0].clientX +"," + event.changedTouches[0].clientY +")");
+                obj.startInterval();
+                break;
+            case "touchmove":
+				event.preventDefault();
+                //alert("<br>Touch moved (" + event.touches[0].clientX +"," + event.touches[0].clientY +")");
+                moveX=event.touches[0].clientX-startX;
+                obj.setTransform(-index*width+moveX);
+                break;
+        }
+    }
+
+	return obj;
+
+}

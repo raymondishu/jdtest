@@ -16,7 +16,7 @@ body{
 	max-width: 640px;
 	margin:0 auto;
 	position: relative;
-	background-color: rgba(201,21,35,0.85);
+	background-color: rgba(201,21,35,0.00);
 	height: 40px;
 	padding-left: 70px;
 	padding-right: 52px;
@@ -81,6 +81,9 @@ body{
 }
 .banner ul:first-child{
     width: 800%;
+    /*依据父容器的百分比*/
+    /*transform: translateX(-12.5%);
+    -webkit-transform:translateX(-12.5%);*/
 }
 .banner ul:first-child li{
     width: 12.5%;
@@ -109,6 +112,11 @@ body{
     margin-left: 10px;
     float: left;
 }
+
+.banner ul:last-child li.active {
+    background-color: #fff;
+}
+
 .banner ul:last-child li:first-child{
     margin-left: 0;
 }
