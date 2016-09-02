@@ -58,6 +58,9 @@ body{
 .right_category .right_category_con .banner{
     width: 100%;
 }
+.right_category .right_category_con .banner img{
+    width: 100%;
+}
 .right_category .right_category_con .catType{
 	font-size: 12px;
     font-family: sans-serif;

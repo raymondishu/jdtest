@@ -11,9 +11,9 @@ window.onload=function() {
 			search.style.background="rgba(201,21,35,"+op+")";
 		}
 	}
-	secindkill();
 	var sp=ScrollPic();
 	sp.startInterval();
+	secindkill();
 
 }
 var secindkill=function(){
@@ -44,6 +44,7 @@ var ScrollPic= function(){
 	var width=banner.offsetWidth;
 	// 得到图片盒子
 	var imgBox=banner.getElementsByTagName('ul')[0];
+
 	// 得到点盒子
 	var pointBox=banner.getElementsByTagName('ul')[1];
 	// 得到点列
@@ -63,19 +64,26 @@ var ScrollPic= function(){
 
 
 //加过度
-	var addTransition=function(){
-		imgBox.style.transition="all .3s ease 0s";
-		imgBox.style.webkitTransition="all .3s ease 0s";
+	obj.addTransition=function(){
+		imgBox.style.webkitTransition="all 0.3s ease 0s";
+		imgBox.style.transition="all 0.3s ease 0s";
+		
 	}
 //减过度
-	var removeTransition=function(){
-		imgBox.style.transition="";
-		imgBox.style.webkitTransition="";
+	obj.removeTransition=function(){
+		imgBox.style.webkitTransition="all 0s ease 0s";
+		imgBox.style.transition="all 0s ease 0s";
+		
 	}
 	//改变位置
 	obj.setTransform=function(t){
-		imgBox.style.transform='translateX('+t+'px)';
-		imgBox.style.webkittransform='translateX('+t+'px)';
+		imgBox.style.transform="translateX("+t+"px)";
+		imgBox.style.webkitTransform="translateX("+t+"px)";
+	}
+
+	obj.removeTransform=function(){
+		imgBox.style.transform='';
+		imgBox.style.webkitTransform='';
 	}
 
 	//更改点位置
@@ -91,14 +99,15 @@ var ScrollPic= function(){
 	var timer=null;
 	obj.startInterval=function(){
 		timer=setInterval(function(){
-			addTransition();
 			obj.setIndex((index+1)%8);
+			obj.addTransition();
+			//obj.removeTransition();
 		},3000);
 	}
 
 	obj.setIndex=function(i){
 		index=i;
-		obj.setTransform(-i*width);
+		obj.setTransform(-width-i*width);
 		obj.setpoint(i);
 	}
 	obj.stopInterval=function(){
@@ -114,33 +123,39 @@ var ScrollPic= function(){
 	var moveX=0;
 	var startX=0;
 
-	imgBox.addEventListener('touchstart',touch);
-	imgBox.addEventListener('touchmove',touch);
-	/**触摸结束事件**/
-	imgBox.addEventListener('touchend',touch);
-	
-	function touch(event){
-        console.log(event);
-        switch(event.type){
-            case "touchstart":
-
-            	startX=event.touches[0].clientX;
-            	removeTransition();
-            	obj.stopInterval();
-                //alert("Touch started (" + event.touches[0].clientX +"," + event.touches[0].clientY +")");
-                break;
-            case "touchend":
-                //alert("<br>Touch end (" + event.changedTouches[0].clientX +"," + event.changedTouches[0].clientY +")");
-                obj.startInterval();
-                break;
-            case "touchmove":
-				event.preventDefault();
-                //alert("<br>Touch moved (" + event.touches[0].clientX +"," + event.touches[0].clientY +")");
-                moveX=event.touches[0].clientX-startX;
-                obj.setTransform(-index*width+moveX);
-                break;
-        }
-    }
+	banner.addEventListener('touchstart',function(e){
+		//e.preventDefault();
+		//simgBox.style=null;
+		console.log(0);
+		startX=event.touches[0].clientX;
+        obj.stopInterval();
+	},false);
+	banner.addEventListener('touchmove',function(e){
+    	
+    	console.log(1);
+        //alert("<br>Touch moved (" + event.touches[0].clientX +"," + event.touches[0].clientY +")");
+        moveX=e.touches[0].clientX-startX;
+        obj.setTransform(-width-index*width+moveX);
+        e.preventDefault();
+        obj.removeTransition();
+    },false);
+	banner.addEventListener('touchend',function(e){
+		console.log(2);
+		if(moveX>width/3){
+			console.log((index-1+8)%8);
+			obj.setIndex((index-1+8)%8);
+		}else if(-moveX>width/3){
+			obj.setIndex((index+1)%8);
+		}else{
+			obj.setIndex(index);
+		}
+		obj.startInterval();
+	},false);
+	banner.addEventListener('touchcancel',touchCancel,false)
+	function touchCancel(e){
+		e.preventDefalut();
+		console.log(event);
+	}
 
 	return obj;
 

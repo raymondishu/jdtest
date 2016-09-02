@@ -80,13 +80,16 @@ body{
 	padding: 0px;
 }
 .banner ul:first-child{
-    width: 800%;
+    width: 1000%;
     /*依据父容器的百分比*/
-    /*transform: translateX(-12.5%);
-    -webkit-transform:translateX(-12.5%);*/
+    -webkit-overflow-scrolling: touch;
+    -webkit-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+    transform: translateX(-10%);
+    -webkit-transform:translateX(-10%);
 }
 .banner ul:first-child li{
-    width: 12.5%;
+    width: 10%;
     float: left;
 }
 .banner ul:first-child li img{
