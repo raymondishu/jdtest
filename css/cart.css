@@ -12,6 +12,7 @@ body{
 	text-align: center;
 	background: #fff;
 	border-bottom: 1px solid #e0e0e0;
+	margin-bottom: 80px;
 }
 .safeTip p{
 	display: inline-block;
@@ -39,6 +40,7 @@ body{
 	background: url("../img/shop-icon.png") no-repeat;
 	background-size: 50px 100px;
 	background-position: 0 0;
+	z-index: 1001;
 }
 .check_box[checked]{
 	background-position: -25px 0;
@@ -47,6 +49,8 @@ body{
 .shop{
 	margin-top: 10px;
 	background: #fff;
+	margin-top:-70px;
+	margin-bottom: 80px;
 
 }
 
@@ -311,4 +315,33 @@ body{
 	text-align: center;
 	line-height: 36px;
 	color: #fff;
+}
+@-webkit-keyframes jumpOut{
+	0%{
+		opacity: 0;
+		transform: translateY(-2000px);
+		-webkit-transform: translateY(-2000px);
+	}
+	60%{
+		opacity: 0;
+		transform: translateY(30px);
+		-webkit-transform: translateY(30px);
+	}
+	75%{
+		opacity: 0;
+		transform: translateY(-10px);
+		-webkit-transform: translateY(-10px);
+	}
+	90%{
+		transform: translateY(5px);
+		-webkit-transform: translateY(5px);
+	}
+	100%{
+		opacity: 1;
+		transform: none;
+		-webkit-transform: none;
+	}
+}
+.jumpOut{
+	animation: jumpOut 1s ease;
 }
